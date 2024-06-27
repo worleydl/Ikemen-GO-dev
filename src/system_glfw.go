@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"image"
+	"os"
 
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
@@ -25,6 +26,7 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 	chk(glfw.Init())
 
 	if monitor = glfw.GetPrimaryMonitor(); monitor == nil {
+		os.Create("E:/ikemen/wtf4.txt")
 		return nil, fmt.Errorf("failed to obtain primary monitor")
 	}
 
