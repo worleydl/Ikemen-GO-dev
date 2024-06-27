@@ -10,33 +10,33 @@
   "BarStun": false,
   "Borderless": false,
   "CommonAir": [
-    "E:/ikemen/data/common.air"
+    "H:/ikemen/data/common.air"
   ],
   "CommonCmd": [
-    "E:/ikemen/data/common.cmd"
+    "H:/ikemen/data/common.cmd"
   ],
   "CommonConst": [
-    "E:/ikemen/data/common.const"
+    "H:/ikemen/data/common.const"
   ],
   "CommonFx": [],
   "CommonLua": [
     "loop()"
   ],
   "CommonStates": [
-    "E:/ikemen/data/functions.zss",
-    "E:/ikemen/data/action.zss",
-    "E:/ikemen/data/dizzy.zss",
-    "E:/ikemen/data/guardbreak.zss",
-    "E:/ikemen/data/score.zss",
-    "E:/ikemen/data/tag.zss",
-    "E:/ikemen/data/training.zss"
+    "H:/ikemen/data/functions.zss",
+    "H:/ikemen/data/action.zss",
+    "H:/ikemen/data/dizzy.zss",
+    "H:/ikemen/data/guardbreak.zss",
+    "H:/ikemen/data/score.zss",
+    "H:/ikemen/data/tag.zss",
+    "H:/ikemen/data/training.zss"
   ],
   "ControllerStickSensitivity": 0.4,
   "Credits": 10,
   "DebugClipboardRows": 2,
   "DebugClsnDarken": true,
   "DebugConsoleRows": 15,
-  "DebugFont": "E:/ikemen/font/debug.def",
+  "DebugFont": "H:/ikemen/font/debug.def",
   "DebugFontScale": 0.5,
   "DebugKeys": true,
   "DebugMode": true,
@@ -70,7 +70,7 @@
   "MaxHelper": 56,
   "MaxPlayerProjectile": 256,
   "Modules": [],
-  "Motif": "E:/ikemen/data/system.def",
+  "Motif": "H:/ikemen/data/system.def",
   "MSAA": false,
   "NumSimul": [
     2,
@@ -109,9 +109,9 @@
   "RoundsNumTag": 2,
   "RoundTime": 99,
   "ScreenshotFolder": "",
-  "StartStage": "E:/ikemen/stages/stage1.def",
+  "StartStage": "H:/ikemen/stages/stage1.def",
   "StereoEffects": true,
-  "System": "E:/ikemen/external/script/main.lua",
+  "System": "H:/ikemen/external/script/main.lua",
   "Team1VS2Life": 100,
   "TeamDuplicates": true,
   "TeamLifeShare": false,
@@ -126,9 +126,9 @@
   "WavChannels": 32,
   "WindowCentered": true,
   "WindowIcon": [
-    "E:/ikemen/external/icons/IkemenCylia_256.png",
-    "E:/ikemen/external/icons/IkemenCylia_96.png",
-    "E:/ikemen/external/icons/IkemenCylia_48.png"
+    "H:/ikemen/external/icons/IkemenCylia_256.png",
+    "H:/ikemen/external/icons/IkemenCylia_96.png",
+    "H:/ikemen/external/icons/IkemenCylia_48.png"
   ],
   "WindowScaleMode": true,
   "WindowTitle": "Ikemen GO",
