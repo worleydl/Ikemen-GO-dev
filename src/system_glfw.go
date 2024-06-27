@@ -3,9 +3,7 @@
 package main
 
 import (
-	"fmt"
 	"image"
-	"os"
 
 	gl "github.com/fyne-io/gl-js"
 	glfw "github.com/fyne-io/glfw-js"
@@ -21,29 +19,33 @@ type Window struct {
 func (s *System) newWindow(w, h int) (*Window, error) {
 	var err error
 	var window *glfw.Window
-	var monitor *glfw.Monitor
 
 	// Initialize OpenGL
 	chk(glfw.Init(gl.ContextWatcher))
 
+	/*
 	if monitor = glfw.GetPrimaryMonitor(); monitor == nil {
-		os.Create("E:/ikemen/wtf4.txt")
 		return nil, fmt.Errorf("failed to obtain primary monitor")
 	}
 
 	var mode = monitor.GetVideoMode()
 	var x, y = (mode.Width - w) / 2, (mode.Height - h) / 2
+	*/
+	var x = 0
+	var y = 0
 
 	// "-windowed" overrides the configuration setting but does not change it
-	_, forceWindowed := sys.cmdFlags["-windowed"]
-	fullscreen := s.fullscreen && !forceWindowed
+	fullscreen := true //s.fullscreen && !forceWindowed
 
+	/*
 	glfw.WindowHint(glfw.Resizable, glfw.False)
 	glfw.WindowHint(glfw.ContextVersionMajor, 2)
 	glfw.WindowHint(glfw.ContextVersionMinor, 1)
+	*/
 
 	// Create main window.
 	// NOTE: Borderless fullscreen is in reality just a window without borders.
+	/*
 	if fullscreen && !s.borderless {
 		window, err = glfw.CreateWindow(w, h, s.windowTitle, monitor, nil)
 	} else {
@@ -52,13 +54,15 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to create window: %w", err)
 	}
+	*/
+	window, err = glfw.CreateWindow(w, h, s.windowTitle, nil, nil)
 
 	// Set windows attributes
 	if fullscreen {
 		window.SetPos(0, 0)
 		if s.borderless {
 			window.SetAttrib(glfw.Decorated, 0)
-			window.SetSize(mode.Width, mode.Height)
+			window.SetSize(1920, 1080) // TODO: Fix mode vars
 		}
 		window.SetInputMode(glfw.CursorMode, glfw.CursorHidden)
 	} else {

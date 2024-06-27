@@ -14,6 +14,8 @@ require (
 	golang.org/x/mobile v0.0.0-20221110043201-43a038452099
 )
 
+replace github.com/go-gl/glfw/v3.3/glfw => ../scratch/glfw/v3.3/glfw
+
 require (
 	github.com/TheTitanrain/w32 v0.0.0-20180517000239-4f5cfb03fabf // indirect
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20211213063430-748e38ca8aec // indirect
