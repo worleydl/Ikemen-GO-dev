@@ -48,16 +48,19 @@ func closeLog(f *os.File) {
 }
 
 func main() {
+	// Needed for paths to work in UWP without editing a whole bunch of stuff
+	os.Chdir("E:/ikemen")
+
 	// Make save directories, if they don't exist
-	os.Mkdir("H:/ikemen/save", os.ModeSticky|0755)
-	os.Mkdir("H:/ikemen/save/replays", os.ModeSticky|0755)
+	os.Mkdir("save", os.ModeSticky|0755)
+	os.Mkdir("save/replays", os.ModeSticky|0755)
 
 	processCommandLine()
 
 	// Try reading stats
-	if _, err := os.ReadFile("H:/ikemen/save/stats.json"); err != nil {
+	if _, err := os.ReadFile("save/stats.json"); err != nil {
 		// If there was an error reading, write an empty json file
-		f, err := os.Create("H:/ikemen/save/stats.json")
+		f, err := os.Create("save/stats.json")
 		chk(err)
 		f.Write([]byte("{}"))
 		chk(f.Close())
@@ -88,7 +91,7 @@ func main() {
 	// Begin processing game using its lua scripts
 	if err := sys.luaLState.DoFile(tmp.System); err != nil {
 		// Display error logs.
-		errorLog := createLog("H:/ikemen/save/Ikemen.log")
+		errorLog := createLog("save/Ikemen.log")
 		defer closeLog(errorLog)
 		fmt.Fprintln(errorLog, err)
 		switch err.(type) {
@@ -291,7 +294,7 @@ func setupConfig() configSettings {
 	tmp := configSettings{}
 	chk(json.Unmarshal(defaultConfig, &tmp))
 	// Config file path
-	cfgPath := "H:/ikemen/save/config.json"
+	cfgPath := "save/config.json"
 	// If a different config file is defined in the command line parameters, use it instead
 	if _, ok := sys.cmdFlags["-config"]; ok {
 		cfgPath = sys.cmdFlags["-config"]
