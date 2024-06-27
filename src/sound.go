@@ -22,7 +22,7 @@ const (
 	audioFrequency       = 48000
 	audioPrecision       = 4
 	audioResampleQuality = 1
-	audioSoundFont       = "E:/ikemen/sound/soundfont.sf2" // default path for MIDI soundfont
+	audioSoundFont       = "H:/ikemen/sound/soundfont.sf2" // default path for MIDI soundfont
 )
 
 // ------------------------------------------------------------------
