@@ -74,7 +74,7 @@ function varWin64() {
 		export CC=x86_64-w64-mingw32-gcc
 		export CXX=x86_64-w64-mingw32-g++
 	fi
-	binName="Ikemen_GO.exe"
+	binName="Ikemen_GO.dll"
 }
 
 function varMacOS() {
@@ -113,7 +113,8 @@ function build() {
 function buildWin() {
 	#echo "buildWin"
 	#echo "$binName"
-	go build -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName ./src
+	#go build -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName -buildmode=c-archive ./src
+	go build -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName -buildmode=c-shared ./src
 }
 
 # Determine the target OS.
