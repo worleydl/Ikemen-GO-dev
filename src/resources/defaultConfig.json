@@ -10,33 +10,33 @@
   "BarStun": false,
   "Borderless": false,
   "CommonAir": [
-    "data/common.air"
+    "E:/ikemen/data/common.air"
   ],
   "CommonCmd": [
-    "data/common.cmd"
+    "E:/ikemen/data/common.cmd"
   ],
   "CommonConst": [
-    "data/common.const"
+    "E:/ikemen/data/common.const"
   ],
   "CommonFx": [],
   "CommonLua": [
     "loop()"
   ],
   "CommonStates": [
-    "data/functions.zss",
-    "data/action.zss",
-    "data/dizzy.zss",
-    "data/guardbreak.zss",
-    "data/score.zss",
-    "data/tag.zss",
-    "data/training.zss"
+    "E:/ikemen/data/functions.zss",
+    "E:/ikemen/data/action.zss",
+    "E:/ikemen/data/dizzy.zss",
+    "E:/ikemen/data/guardbreak.zss",
+    "E:/ikemen/data/score.zss",
+    "E:/ikemen/data/tag.zss",
+    "E:/ikemen/data/training.zss"
   ],
   "ControllerStickSensitivity": 0.4,
   "Credits": 10,
   "DebugClipboardRows": 2,
   "DebugClsnDarken": true,
   "DebugConsoleRows": 15,
-  "DebugFont": "font/debug.def",
+  "DebugFont": "E:/ikemen/font/debug.def",
   "DebugFontScale": 0.5,
   "DebugKeys": true,
   "DebugMode": true,
@@ -69,7 +69,7 @@
   "MaxHelper": 56,
   "MaxPlayerProjectile": 256,
   "Modules": [],
-  "Motif": "data/system.def",
+  "Motif": "E:/ikemen/data/system.def",
   "MSAA": false,
   "NumSimul": [
     2,
@@ -107,9 +107,9 @@
   "RoundsNumTag": 2,
   "RoundTime": 99,
   "ScreenshotFolder": "",
-  "StartStage": "stages/stage1.def",
+  "StartStage": "E:/ikemen/stages/stage1.def",
   "StereoEffects": true,
-  "System": "external/script/main.lua",
+  "System": "E:/ikemen/external/script/main.lua",
   "Team1VS2Life": 100,
   "TeamDuplicates": true,
   "TeamLifeShare": false,
@@ -124,9 +124,9 @@
   "WavChannels": 32,
   "WindowCentered": true,
   "WindowIcon": [
-    "external/icons/IkemenCylia_256.png",
-    "external/icons/IkemenCylia_96.png",
-    "external/icons/IkemenCylia_48.png"
+    "E:/ikemen/external/icons/IkemenCylia_256.png",
+    "E:/ikemen/external/icons/IkemenCylia_96.png",
+    "E:/ikemen/external/icons/IkemenCylia_48.png"
   ],
   "WindowTitle": "Ikemen GO",
   "XinputTriggerSensitivity": 0,
