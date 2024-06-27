@@ -7,11 +7,11 @@ main = {}
 math.randomseed(os.time())
 
 main.flags = getCommandLineFlags()
-if main.flags['-config'] == nil then main.flags['-config'] = 'save/config.json' end
-if main.flags['-stats'] == nil then main.flags['-stats'] = 'save/stats.json' end
+if main.flags['-config'] == nil then main.flags['-config'] = 'H:/ikemen/save/config.json' end
+if main.flags['-stats'] == nil then main.flags['-stats'] = 'H:/ikemen/save/stats.json' end
 
 --One-time load of the json routines
-json = (loadfile 'external/script/json.lua')()
+json = (loadfile 'H:/ikemen/external/script/json.lua')()
 
 --;===========================================================
 --; COMMON FUNCTIONS
