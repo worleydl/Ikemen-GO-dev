@@ -3,6 +3,7 @@
 package main
 
 import (
+	"C"
 	"io"
 	"os"
 
@@ -10,6 +11,11 @@ import (
 	"github.com/ikemen-engine/glfont"
 	"github.com/sqweek/dialog"
 )
+
+//export GoMain
+func GoMain() {
+	main()
+}
 
 // Log writer implementation
 func NewLogWriter() io.Writer {

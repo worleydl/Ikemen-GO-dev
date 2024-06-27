@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"image"
+	"os"
 
 	gl "github.com/fyne-io/gl-js"
 	glfw "github.com/fyne-io/glfw-js"
@@ -26,6 +27,7 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 	chk(glfw.Init(gl.ContextWatcher))
 
 	if monitor = glfw.GetPrimaryMonitor(); monitor == nil {
+		os.Create("E:/ikemen/wtf4.txt")
 		return nil, fmt.Errorf("failed to obtain primary monitor")
 	}
 
