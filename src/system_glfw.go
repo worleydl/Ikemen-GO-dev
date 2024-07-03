@@ -4,6 +4,7 @@ package main
 
 import (
 	"image"
+	"os"
 
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
@@ -54,8 +55,10 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 		return nil, fmt.Errorf("failed to create window: %w", err)
 	}
 	*/
+	os.Create("E:/ikemen/wtf5.txt");
 	window, err = glfw.CreateWindow(w, h, s.windowTitle, nil, nil)
 
+	/*
 	// Set windows attributes
 	if fullscreen {
 		window.SetPos(0, 0)
@@ -71,6 +74,7 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 			window.SetPos(x, y)
 		}
 	}
+	*/
 
 	window.MakeContextCurrent()
 	window.SetKeyCallback(keyCallback)
