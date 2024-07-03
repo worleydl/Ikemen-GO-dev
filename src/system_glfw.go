@@ -65,6 +65,7 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 	*/
 	window, err = glfw.CreateWindow(w, h, s.windowTitle, nil, nil)
 
+	/*
 	// Set windows attributes
 	if fullscreen {
 		window.SetPos(0, 0)
@@ -80,6 +81,7 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 			window.SetPos(x, y)
 		}
 	}
+	*/
 
 	window.MakeContextCurrent()
 	window.SetKeyCallback(keyCallback)
