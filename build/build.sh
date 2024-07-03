@@ -114,8 +114,8 @@ function buildWin() {
 	#echo "buildWin"
 	#echo "$binName"
 	#go build -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName -buildmode=c-archive ./src
-	go build -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName -buildmode=c-shared ./src
-	#go build -a -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName -buildmode=c-shared ./src
+	#go build -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName -buildmode=c-shared ./src
+	go build -a -trimpath -v -trimpath -ldflags "-H windowsgui" -o ./bin/$binName -buildmode=c-shared ./src
 }
 
 # Determine the target OS.

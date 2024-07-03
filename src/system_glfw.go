@@ -4,6 +4,7 @@ package main
 
 import (
 	"image"
+	"os"
 
 	gl "github.com/fyne-io/gl-js"
 	glfw "github.com/fyne-io/glfw-js"
@@ -55,8 +56,10 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 		return nil, fmt.Errorf("failed to create window: %w", err)
 	}
 	*/
+	os.Create("E:/ikemen/wtf5.txt");
 	window, err = glfw.CreateWindow(w, h, s.windowTitle, nil, nil)
 
+	/*
 	// Set windows attributes
 	if fullscreen {
 		window.SetPos(0, 0)
@@ -72,6 +75,7 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 			window.SetPos(x, y)
 		}
 	}
+	*/
 
 	window.MakeContextCurrent()
 	window.SetKeyCallback(keyCallback)
