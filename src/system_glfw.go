@@ -4,7 +4,6 @@ package main
 
 import (
 	"image"
-	"os"
 
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
@@ -55,7 +54,6 @@ func (s *System) newWindow(w, h int) (*Window, error) {
 		return nil, fmt.Errorf("failed to create window: %w", err)
 	}
 	*/
-	os.Create("E:/ikemen/wtf5.txt");
 	window, err = glfw.CreateWindow(w, h, s.windowTitle, nil, nil)
 
 	/*
