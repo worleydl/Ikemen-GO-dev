@@ -15,6 +15,7 @@ require (
 )
 
 replace github.com/go-gl/glfw/v3.3/glfw => ../scratch/glfw/v3.3/glfw
+replace github.com/hajimehoshi/oto => ../oto
 
 require (
 	github.com/TheTitanrain/w32 v0.0.0-20180517000239-4f5cfb03fabf // indirect
