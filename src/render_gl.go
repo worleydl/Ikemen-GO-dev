@@ -326,6 +326,7 @@ func (r *Renderer) EndFrame() {
 	gl.EnableVertexAttribArray(postShader.aVert)
 	gl.VertexAttribPointer(postShader.aVert, 2, gl.FLOAT, false, 0, 0)
 
+	gl.Viewport(0, 0, int32(r.uwp_width), int32(r.uwp_height))
 	gl.DrawArrays(gl.TRIANGLE_STRIP, 0, 4)
 
 	gl.DisableVertexAttribArray(postShader.aVert)
