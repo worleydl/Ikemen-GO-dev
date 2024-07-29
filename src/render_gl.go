@@ -2,6 +2,10 @@
 
 package main
 
+// #cgo LDFLAGS: -L../uwp-deps/ -llibuwp
+// #include "libuwp.h"
+import "C"
+
 import (
 	_ "embed" // Support for go:embed resources
 	"encoding/binary"
