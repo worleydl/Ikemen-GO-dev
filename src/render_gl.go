@@ -2,6 +2,10 @@
 
 package main
 
+// #cgo LDFLAGS: -L../uwp-deps/ -llibuwp
+// #include "libuwp.h"
+import "C"
+
 import (
 	"bytes"
 	_ "embed" // Support for go:embed resources
@@ -335,6 +339,10 @@ func (r *Renderer) Init() {
 	gl.ActiveTexture(gl.TEXTURE0)
 	gl.GenTextures(1, &r.fbo_texture)
 
+	var uwp_width C.int
+	var uwp_height C.int
+	C.uwp_GetScreenSize(&uwp_width, &uwp_height)
+
 	if sys.multisampleAntialiasing {
 		gl.BindTexture(gl.TEXTURE_2D_MULTISAMPLE, r.fbo_texture)
 	} else {
@@ -346,6 +354,14 @@ func (r *Renderer) Init() {
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
 
+	/*
+	if sys.multisampleAntialiasing {
+		gl.TexImage2DMultisample(gl.TEXTURE_2D_MULTISAMPLE, 16, gl.RGBA, sys.scrrect[2], sys.scrrect[3], true)
+
+	} else {
+		gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, sys.scrrect[2], sys.scrrect[3], 0, gl.RGBA, gl.UNSIGNED_BYTE, nil)
+	}
+	*/
 	if sys.multisampleAntialiasing {
 		gl.TexImage2DMultisample(gl.TEXTURE_2D_MULTISAMPLE, 16, gl.RGBA, sys.scrrect[2], sys.scrrect[3], true)
 
