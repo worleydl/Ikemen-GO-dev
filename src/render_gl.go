@@ -326,7 +326,17 @@ func (r *Renderer) EndFrame() {
 	gl.EnableVertexAttribArray(postShader.aVert)
 	gl.VertexAttribPointer(postShader.aVert, 2, gl.FLOAT, false, 0, 0)
 
-	gl.Viewport(0, 0, int32(r.uwp_width), int32(r.uwp_height))
+	render_ratio := float32(sys.scrrect[2]) / float32(sys.scrrect[3])
+	screen_ratio := float32(r.uwp_width) / float32(r.uwp_height)
+
+	aspect_offset := int32(0)
+
+	// TODO: Handle other cases? This works well enough for the current supported 4:3 resolutions, 16:9 has no offset
+	if render_ratio < screen_ratio {
+		aspect_offset = int32(r.uwp_width) - int32(float32(r.uwp_width) / render_ratio)
+	}
+
+	gl.Viewport(aspect_offset / 2, 0, int32(int32(r.uwp_width) - aspect_offset), int32(r.uwp_height))
 	gl.DrawArrays(gl.TRIANGLE_STRIP, 0, 4)
 
 	gl.DisableVertexAttribArray(postShader.aVert)
