@@ -259,6 +259,8 @@ type Renderer struct {
 	modelShader       *ShaderProgram
 	stageVertexBuffer uint32
 	stageIndexBuffer  uint32
+	uwp_width C.int
+	uwp_height C.int
 }
 
 //go:embed shaders/sprite.vert.glsl
@@ -339,9 +341,7 @@ func (r *Renderer) Init() {
 	gl.ActiveTexture(gl.TEXTURE0)
 	gl.GenTextures(1, &r.fbo_texture)
 
-	var uwp_width C.int
-	var uwp_height C.int
-	C.uwp_GetScreenSize(&uwp_width, &uwp_height)
+	C.uwp_GetScreenSize(&r.uwp_width, &r.uwp_height)
 
 	if sys.multisampleAntialiasing > 0 {
 		gl.BindTexture(gl.TEXTURE_2D_MULTISAMPLE, r.fbo_texture)
