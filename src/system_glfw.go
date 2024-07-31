@@ -2,6 +2,10 @@
 
 package main
 
+// #cgo LDFLAGS: -L../uwp-deps/ -llibuwp
+// #include "libuwp.h"
+import "C"
+
 import (
 	"image"
 
@@ -113,7 +117,10 @@ func (w *Window) GetSize() (int, int) {
 func (w *Window) GetScaledViewportSize() (int32, int32, int32, int32) {
 	// calculates a position and size for the viewport to fill the window while centered (see render_gl.go)
 	// returns x, y, width, height respectively
-	winWidth, winHeight := w.GetSize()
+	//winWidth, winHeight := w.GetSize()
+	var winWidth, winHeight C.int
+	C.uwp_GetScreenSize(&winWidth, &winHeight)
+
 	ratioWidth := float32(winWidth) / float32(sys.gameWidth)
 	ratioHeight := float32(winHeight) / float32(sys.gameHeight)
 	var ratio float32
