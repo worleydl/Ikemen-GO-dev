@@ -1,5 +1,10 @@
 package main
 
+// #cgo LDFLAGS: -L../uwp-deps/ -llibuwp
+// #include "libuwp.h"
+import "C"
+
+
 import (
 	_ "embed" // Support for go:embed resources
 	"encoding/json"
@@ -10,6 +15,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"unsafe"
 
 	lua "github.com/yuin/gopher-lua"
 )
@@ -61,8 +67,13 @@ func main() {
 		}
 	}
 
+	// Pick a folder to chroot too
+	pathBuffer := make([]byte, 256)
+	cPathBuffer := (*C.char)(unsafe.Pointer(&pathBuffer[0]))
+	C.uwp_PickAFolder(cPathBuffer)
+
 	// Needed for paths to work in UWP without editing a whole bunch of stuff
-	os.Chdir("E:/ikemen")
+	os.Chdir(C.GoString(cPathBuffer))
 
 	// Make save directories, if they don't exist
 	os.Mkdir("save", os.ModeSticky|0755)
