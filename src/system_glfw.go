@@ -2,6 +2,10 @@
 
 package main
 
+// #cgo LDFLAGS: -L../uwp-deps/ -llibuwp
+// #include "libuwp.h"
+import "C"
+
 import (
 	"image"
 
