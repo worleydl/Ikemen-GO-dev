@@ -2,10 +2,6 @@
 
 package main
 
-// #cgo LDFLAGS: -L../uwp-deps/ -llibuwp
-// #include "libuwp.h"
-import "C"
-
 import (
 	"bytes"
 	_ "embed" // Support for go:embed resources
@@ -259,8 +255,6 @@ type Renderer struct {
 	modelShader       *ShaderProgram
 	stageVertexBuffer uint32
 	stageIndexBuffer  uint32
-	uwp_width C.int
-	uwp_height C.int
 }
 
 //go:embed shaders/sprite.vert.glsl
@@ -341,8 +335,6 @@ func (r *Renderer) Init() {
 	gl.ActiveTexture(gl.TEXTURE0)
 	gl.GenTextures(1, &r.fbo_texture)
 
-	C.uwp_GetScreenSize(&r.uwp_width, &r.uwp_height)
-
 	if sys.multisampleAntialiasing {
 		gl.BindTexture(gl.TEXTURE_2D_MULTISAMPLE, r.fbo_texture)
 	} else {
@@ -354,14 +346,6 @@ func (r *Renderer) Init() {
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
 
-	/*
-	if sys.multisampleAntialiasing {
-		gl.TexImage2DMultisample(gl.TEXTURE_2D_MULTISAMPLE, 16, gl.RGBA, sys.scrrect[2], sys.scrrect[3], true)
-
-	} else {
-		gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, sys.scrrect[2], sys.scrrect[3], 0, gl.RGBA, gl.UNSIGNED_BYTE, nil)
-	}
-	*/
 	if sys.multisampleAntialiasing {
 		gl.TexImage2DMultisample(gl.TEXTURE_2D_MULTISAMPLE, 16, gl.RGBA, sys.scrrect[2], sys.scrrect[3], true)
 
@@ -466,17 +450,6 @@ func (r *Renderer) EndFrame() {
 	gl.EnableVertexAttribArray(uint32(loc))
 	gl.VertexAttribPointerWithOffset(uint32(loc), 2, gl.FLOAT, false, 0, 0)
 
-	render_ratio := float32(sys.scrrect[2]) / float32(sys.scrrect[3])
-	screen_ratio := float32(r.uwp_width) / float32(r.uwp_height)
-
-	aspect_offset := int32(0)
-
-	// TODO: Handle other cases? This works well enough for the current supported 4:3 resolutions, 16:9 has no offset
-	if render_ratio < screen_ratio {
-		aspect_offset = int32(r.uwp_width) - int32(float32(r.uwp_width) / render_ratio)
-	}
-
-	gl.Viewport(aspect_offset / 2, 0, int32(int32(r.uwp_width) - aspect_offset), int32(r.uwp_height))
 	gl.DrawArrays(gl.TRIANGLE_STRIP, 0, 4)
 	gl.DisableVertexAttribArray(uint32(loc))
 
