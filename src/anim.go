@@ -159,7 +159,7 @@ type Animation struct {
 }
 
 func newAnimation(sff *Sff, pal *PaletteList) *Animation {
-	return &Animation{sff: sff, tex: ImageTexture(), palettedata: pal, mask: -1, srcAlpha: -1, newframe: true,
+	return &Animation{sff: sff, tex: PaletteTexture(), palettedata: pal, mask: -1, srcAlpha: -1, newframe: true,
 		remap: make(RemapPreset), start_scale: [...]float32{1, 1}}
 }
 func ReadAnimation(sff *Sff, pal *PaletteList, lines []string, i *int) *Animation {
