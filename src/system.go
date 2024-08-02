@@ -440,11 +440,11 @@ func (s *System) init(w, h int32) *lua.LState {
 		s.stringPool[i] = *NewStringPool()
 	}
 
-	s.drawc1Tex = ImageTexture()
-	s.drawc2Tex = ImageTexture()
-	s.drawc2sprTex = ImageTexture()
-	s.drawc2mtkTex = ImageTexture()
-	s.drawwhTex = ImageTexture()
+	s.drawc1Tex = PaletteTexture()
+	s.drawc2Tex = PaletteTexture()
+	s.drawc2sprTex = PaletteTexture()
+	s.drawc2mtkTex = PaletteTexture()
+	s.drawwhTex = PaletteTexture()
 
 	s.clsnSpr = *newSprite()
 	s.clsnSpr.Size, s.clsnSpr.Pal = [...]uint16{1, 1}, make([]uint32, 256)
