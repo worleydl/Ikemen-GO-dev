@@ -175,8 +175,8 @@ func (cr *ClsnRect) Add(clsn []float32, x, y, xs, ys float32) {
 		*cr = append(*cr, rect)
 	}
 }
-func (cr ClsnRect) draw(trans int32) {
-	paltex := PaletteToTexture(sys.clsnSpr.Pal)
+func (cr ClsnRect) draw(tex *Texture, trans int32) {
+	paltex := PaletteToTexture(tex, sys.clsnSpr.Pal)
 	for _, c := range cr {
 		params := RenderParams{
 			sys.clsnSpr.Tex, paltex, sys.clsnSpr.Size,
@@ -2531,8 +2531,9 @@ func (c *Char) loadPalette() {
 						copy(gi.palettedata.palList.Get(0), pl)
 					}
 					gi.palExist[i] = true
+					// Palette Texture Generation
 					//パレットテクスチャ生成
-					gi.palettedata.palList.PalTex[i] = PaletteToTexture(pl)
+					gi.palettedata.palList.PalTex[i] = PaletteToTexture(ImageTexture(), pl)
 					tmp = i + 1
 				}
 			}

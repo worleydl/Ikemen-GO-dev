@@ -248,6 +248,14 @@ type System struct {
 	drawc2sp                ClsnRect
 	drawc2mtk               ClsnRect
 	drawwh                  ClsnRect
+	drawch                  ClsnRect
+
+	drawc1Tex               *Texture
+	drawc2Tex               *Texture
+	drawc2spTex             *Texture
+	drawc2mtkTex            *Texture
+	drawwhTex               *Texture
+
 	autoguard               [MaxSimul*2 + MaxAttachedChar]bool
 	accel                   float32
 	clsnSpr                 Sprite
@@ -431,6 +439,13 @@ func (s *System) init(w, h int32) *lua.LState {
 	for i := range s.stringPool {
 		s.stringPool[i] = *NewStringPool()
 	}
+
+	s.drawc1Tex = ImageTexture()
+	s.drawc2Tex = ImageTexture()
+	s.drawc2sprTex = ImageTexture()
+	s.drawc2mtkTex = ImageTexture()
+	s.drawwhTex = ImageTexture()
+
 	s.clsnSpr = *newSprite()
 	s.clsnSpr.Size, s.clsnSpr.Pal = [...]uint16{1, 1}, make([]uint32, 256)
 	s.clsnSpr.SetPxl([]byte{0})
@@ -1580,15 +1595,15 @@ func (s *System) drawTop() {
 	s.brightness = s.brightnessOld
 	if s.clsnDraw {
 		s.clsnSpr.Pal[0] = 0xff0000ff
-		s.drawc1.draw(0x3feff)
+		s.drawc1.draw(s.drawc1Tex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xffff0000
-		s.drawc2.draw(0x3feff)
+		s.drawc2.draw(s.drawc2Tex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff00ff00
-		s.drawc2sp.draw(0x3feff)
+		s.drawc2sp.draw(s.drawc2spTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff002000
-		s.drawc2mtk.draw(0x3feff)
+		s.drawc2mtk.draw(s.drawc2mtkTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff404040
-		s.drawwh.draw(0x3feff)
+		s.drawwh.draw(s.drawwhTex, 0x3feff)
 	}
 }
 func (s *System) drawDebug() {
