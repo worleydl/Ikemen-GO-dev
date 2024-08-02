@@ -619,14 +619,18 @@ func (s *Sprite) SetPxl(px []byte) {
 		return
 	}
 	sys.mainThreadTask <- func() {
-		s.Tex = newTexture(int32(s.Size[0]), int32(s.Size[1]), 8, false)
+		if s.Tex == nil {
+			s.Tex = newTexture(int32(s.Size[0]), int32(s.Size[1]), 8, false)
+		}
 		s.Tex.SetData(px)
 	}
 }
 
 func (s *Sprite) SetRaw(data []byte, sprWidth int32, sprHeight int32, sprDepth int32) {
 	sys.mainThreadTask <- func() {
-		s.Tex = newTexture(sprWidth, sprHeight, sprDepth, sys.pngFilter)
+		if s.Tex == nil {
+			s.Tex = newTexture(sprWidth, sprHeight, sprDepth, sys.pngFilter)
+		}
 		s.Tex.SetData(data)
 	}
 }
@@ -1141,6 +1145,10 @@ type SffCacheEntry struct {
 }
 
 var SffCache = map[string]*SffCacheEntry{}
+
+func resetSFFCache() {
+	SffCache = map[string]*SffCacheEntry{}
+}
 
 func removeSFFCache(filename string) {
 	if _, ok := SffCache[filename]; ok {
