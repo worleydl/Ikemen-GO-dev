@@ -418,8 +418,13 @@ func (pl *PaletteList) SwapPalMap(palMap *[]int) bool {
 	return true
 }
 
-func PaletteToTexture(pal []uint32) *Texture {
+// Generate a single texture for reuse instead of creating new ones every animation frame
+func ImageTexture() *Texture {
 	tx := newTexture(256, 1, 32, false)
+	return tx
+}
+
+func PaletteToTexture(tx *Texture, pal []uint32) *Texture {
 	tx.SetData(unsafe.Slice((*byte)(unsafe.Pointer(&pal[0])), len(pal)*4))
 	return tx
 }
@@ -1142,7 +1147,7 @@ func (s *Sprite) CachePalette(pal []uint32) *Texture {
 	}
 	// If cached texture is invalid, generate a new one
 	if !hasPalette {
-		s.PalTex = PaletteToTexture(pal)
+		s.PalTex = PaletteToTexture(ImageTexture(), pal)
 		s.paltemp = append([]uint32{}, pal...)
 	}
 	return s.PalTex
