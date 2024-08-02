@@ -3135,7 +3135,7 @@ func (c *Char) loadPalette() {
 					}
 					gi.palExist[i] = true
 					// Palette Texture Generation
-					gi.palettedata.palList.PalTex[i] = PaletteToTexture(ImageTexture(), pl)
+					gi.palettedata.palList.PalTex[i] = PaletteToTexture(PaletteTexture(), pl)
 					tmp = i + 1
 				}
 			}
