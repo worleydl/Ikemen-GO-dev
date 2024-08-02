@@ -258,6 +258,18 @@ type System struct {
 	debugc2stb              ClsnRect
 	debugcsize              ClsnRect
 	debugch                 ClsnRect
+
+	debugc1hitTex           *Texture
+	debugc1revTex           *Texture 
+	debugc1notTex           *Texture 
+	debugc2Tex              *Texture 
+	debugc2hbTex            *Texture 
+	debugc2mtkTex           *Texture 
+	debugc2grdTex           *Texture 
+	debugc2stbTex           *Texture 
+	debugcsizeTex           *Texture 
+	debugchTex              *Texture 
+
 	autoguard               [MaxSimul*2 + MaxAttachedChar]bool
 	accel                   float32
 	clsnSpr                 Sprite
@@ -484,6 +496,18 @@ func (s *System) init(w, h int32) *lua.LState {
 	for i := range s.stringPool {
 		s.stringPool[i] = *NewStringPool()
 	}
+
+	s.debugc1hitTex = ImageTexture()
+	s.debugc1revTex = ImageTexture()
+	s.debugc1notTex = ImageTexture()
+	s.debugc2Tex = ImageTexture()
+	s.debugc2hbTex = ImageTexture()
+	s.debugc2mtkTex = ImageTexture()
+	s.debugc2grdTex = ImageTexture()
+	s.debugc2stbTex = ImageTexture()
+	s.debugcsizeTex = ImageTexture()
+	s.debugchTex = ImageTexture()
+
 	s.clsnSpr = *newSprite()
 	s.clsnSpr.Size, s.clsnSpr.Pal = [...]uint16{1, 1}, make([]uint32, 256)
 	s.clsnSpr.SetPxl([]byte{0})
@@ -2004,25 +2028,25 @@ func (s *System) drawTop() {
 	// Draw Clsn boxes
 	if s.clsnDraw {
 		s.clsnSpr.Pal[0] = 0xff0000ff
-		s.debugc1hit.draw(0x3feff)
+		s.debugc1hit.draw(s.debugc1hitTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff0040c0
-		s.debugc1rev.draw(0x3feff)
+		s.debugc1rev.draw(s.debugc1revTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff000080
-		s.debugc1not.draw(0x3feff)
+		s.debugc1not.draw(s.debug1notTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xffff0000
-		s.debugc2.draw(0x3feff)
+		s.debugc2.draw(s.debugc2Tex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff808000
-		s.debugc2hb.draw(0x3feff)
+		s.debugc2hb.draw(s.debugc2hbTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff004000
-		s.debugc2mtk.draw(0x3feff)
+		s.debugc2mtk.draw(s.debugc2mtkTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xffc00040
-		s.debugc2grd.draw(0x3feff)
+		s.debugc2grd.draw(s.debugc2grdTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff404040
-		s.debugc2stb.draw(0x3feff)
+		s.debugc2stb.draw(s.debugc2stbTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff303030
-		s.debugcsize.draw(0x3feff)
+		s.debugcsize.draw(s.debugcsizeTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xffffffff
-		s.debugch.draw(0x3feff)
+		s.debugch.draw(s.debugchTex, 0x3feff)
 	}
 }
 func (s *System) drawDebugText() {
