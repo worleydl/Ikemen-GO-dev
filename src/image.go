@@ -1212,9 +1212,22 @@ func newPaldata() (p *Palette) {
 type SffCacheEntry struct {
 	sffData  Sff
 	refCount int
+	expiry int
 }
 
 var SffCache = map[string]*SffCacheEntry{}
+
+// Give items EXPIRY_LIMIT load cycles to hang out, after that purge to keep RAM in check
+const EXPIRY_LIMIT = 2
+func evictSFFCache() {
+	for filename, entry := range SffCache {
+		entry.expiry -= 1
+
+		if entry.expiry <= 0 {
+			delete(SffCache, filename)
+		}
+	}
+}
 
 func resetSFFCache() {
 	SffCache = map[string]*SffCacheEntry{}
@@ -1229,6 +1242,7 @@ func loadSff(filename string, char bool) (*Sff, error) {
 	// If this SFF is already in the cache, just return a copy
 	if cached, ok := SffCache[filename]; ok {
 		cached.refCount++
+		cached.expiry = EXPIRY_LIMIT // Reset expiry
 		s := cached.sffData
 		return &s, nil
 	}
@@ -1365,7 +1379,7 @@ func loadSff(filename string, char bool) (*Sff, error) {
 			shofs += 28
 		}
 	}
-	SffCache[filename] = &SffCacheEntry{*s, 1}
+	SffCache[filename] = &SffCacheEntry{*s, 1, EXPIRY_LIMIT}
 	runtime.SetFinalizer(s, func(s *Sff) {
 		if cached, ok := SffCache[filename]; ok {
 			cached.refCount--
