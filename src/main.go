@@ -58,7 +58,8 @@ func main() {
 	// Pick a folder to chroot too
 	pathBuffer := make([]byte, 256)
 	cPathBuffer := (*C.char)(unsafe.Pointer(&pathBuffer[0]))
-	C.uwp_PickAFolder(cPathBuffer)
+	//C.uwp_PickAFolder(cPathBuffer)
+	C.uwp_GetTarget(cPathBuffer);
 
 	// Needed for paths to work in UWP without editing a whole bunch of stuff
 	os.Chdir(C.GoString(cPathBuffer))
