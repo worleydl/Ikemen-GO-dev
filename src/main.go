@@ -64,6 +64,9 @@ func main() {
 	// Needed for paths to work in UWP without editing a whole bunch of stuff
 	os.Chdir(C.GoString(cPathBuffer))
 
+	C.uwp_GetBundlePath(cPathBuffer)
+	sys.bundleDir = C.GoString(cPathBuffer)
+
 	// Make save directories, if they don't exist
 	os.Mkdir("save", os.ModeSticky|0755)
 	os.Mkdir("save/replays", os.ModeSticky|0755)
