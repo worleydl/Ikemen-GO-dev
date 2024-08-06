@@ -91,6 +91,7 @@ var sys = System{
 	panningRange:         30,
 	windowCentered:       true,
 	audioSampleRate:      44100,
+	bundleDir:	      "",
 }
 
 type TeamMode int32
@@ -356,6 +357,7 @@ type System struct {
 	frameCounter      int32
 	preFightTime      int32
 	motifDir          string
+	bundleDir	  string
 	captureNum        int
 	roundType         [2]RoundType
 	timerStart        int32

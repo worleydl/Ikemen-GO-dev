@@ -1,9 +1,5 @@
 package main
 
-// #cgo LDFLAGS: -L../uwp-deps/ -llibuwp
-// #include "libuwp.h"
-import "C"
-
 import (
 	"fmt"
 	"math"
@@ -13,7 +9,6 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
-	"unsafe"
 )
 
 const (
@@ -409,27 +404,18 @@ func FileExist(filename string) string {
 
 // SearchFile returns full path to specified file
 func SearchFile(file string, dirs []string) string {
-	// TODO: Doublecheck this isn't leaky
-	pathBuffer := make([]byte, 256)
-	cPathBuffer := (*C.char)(unsafe.Pointer(&pathBuffer[0]))
-	C.uwp_GetBundlePath(cPathBuffer);
-	bundlePath := C.GoString(cPathBuffer)
-
 	file = strings.Replace(file, "\\", "/", -1)
 	for _, v := range dirs {
 		defdir := filepath.Dir(strings.Replace(v, "\\", "/", -1))
 		if fp := FileExist(filepath.Join(defdir, file)); len(fp) > 0 {
-			cPathBuffer = nil
 			return fp
 		}
 
 		// Check base bundle as fallback
-		if fp := FileExist(filepath.Join(bundlePath, "base_content", defdir, file)); len(fp) > 0 {
-			cPathBuffer = nil
+		if fp := FileExist(filepath.Join(sys.bundleDir, "base_content", defdir, file)); len(fp) > 0 {
 			return fp
 		}
 	}
-	cPathBuffer = nil
 	return file
 }
 
