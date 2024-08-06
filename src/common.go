@@ -402,6 +402,15 @@ func FileExist(filename string) string {
 	return ""
 }
 
+func FolderExist(folder string) bool {
+	if info, err := os.Stat(folder); !os.IsNotExist(err) {
+		return info != nil && info.IsDir()
+	}
+
+	return false
+}
+
+
 // SearchFile returns full path to specified file
 func SearchFile(file string, dirs []string) string {
 	file = strings.Replace(file, "\\", "/", -1)

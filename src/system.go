@@ -92,6 +92,7 @@ var sys = System{
 	windowCentered:       true,
 	audioSampleRate:      44100,
 	bundleDir:	      "",
+	targetDir:	      "",
 }
 
 type TeamMode int32
@@ -358,6 +359,7 @@ type System struct {
 	preFightTime      int32
 	motifDir          string
 	bundleDir	  string
+	targetDir	  string // Where did we chroot to on UWP
 	captureNum        int
 	roundType         [2]RoundType
 	timerStart        int32
