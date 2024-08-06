@@ -478,7 +478,7 @@ func validateConfig(cfg configSettings) {
 
 	// Check motif
 	if fp := FileExist(motif); len(fp) == 0 {
-		cfg.Motif = "data/mkp/system.def"
+		cfg.Motif, _ = FindDefFile("data", "system.def")
 
 		indented, _ := json.MarshalIndent(cfg, "", "  ")
 		chk(os.WriteFile(cfgPath, indented, 0644))
