@@ -274,6 +274,31 @@ func FolderExist(folder string) bool {
 	return false
 }
 
+// Find main def when config is pointing towards wrong one
+// This will walk the root path looking for a file that matches the target name
+func FindDefFile(root, target string) (string, error) {
+	found := ""
+
+	err := filepath.WalkDir(root, func(path string, info os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if !info.IsDir() && strings.EqualFold(info.Name(), target) {
+			found = path
+			return filepath.SkipDir
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return "", err
+	}
+
+	return found, nil
+
+}
 
 // SearchFile returns full path to specified file
 func SearchFile(file string, dirs []string) string {
