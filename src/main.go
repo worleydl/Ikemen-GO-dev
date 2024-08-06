@@ -4,7 +4,6 @@ package main
 // #include "libuwp.h"
 import "C"
 
-
 import (
 	_ "embed" // Support for go:embed resources
 	"encoding/json"
@@ -62,6 +61,7 @@ func main() {
 
 	// Needed for paths to work in UWP without editing a whole bunch of stuff
 	os.Chdir(C.GoString(cPathBuffer))
+	sys.targetDir = C.GoString(cPathBuffer)
 
 	C.uwp_GetBundlePath(cPathBuffer)
 	sys.bundleDir = C.GoString(cPathBuffer)
@@ -83,6 +83,7 @@ func main() {
 
 	// Setup config values, and get a reference to the config object for the main script and window size
 	tmp := setupConfig()
+	validateConfig(tmp)
 
 	//os.Mkdir("debug", os.ModeSticky|0755)
 
@@ -462,4 +463,24 @@ func setupConfig() configSettings {
 	}
 
 	return tmp
+}
+
+func validateConfig(cfg configSettings) {
+	cfgPath := "save/config.json"
+	motif := cfg.Motif
+
+	// Check external
+	if !FolderExist("external") {
+		cstr := C.CString(sys.targetDir)
+		C.uwp_PatchFolder(cstr)
+		defer C.free(unsafe.Pointer(cstr))
+	}
+
+	// Check motif
+	if fp := FileExist(motif); len(fp) == 0 {
+		cfg.Motif = "data/mkp/system.def"
+
+		indented, _ := json.MarshalIndent(cfg, "", "  ")
+		chk(os.WriteFile(cfgPath, indented, 0644))
+	}
 }
