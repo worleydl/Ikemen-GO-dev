@@ -489,7 +489,7 @@ func validateConfig(cfg configSettings) {
 	motif := cfg.Motif
 
 	// Check external
-	if !FolderExist("external") {
+	if !FolderExist("external\\script") {
 		cstr := C.CString(sys.targetDir)
 		C.uwp_PatchFolder(cstr)
 		defer C.free(unsafe.Pointer(cstr))
