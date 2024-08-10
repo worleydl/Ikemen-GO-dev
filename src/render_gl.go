@@ -178,6 +178,8 @@ type Renderer struct {
 	// Shader and vertex data for primitive rendering
 	spriteShader *ShaderProgram
 	vertexBuffer gl.Buffer
+	uwp_width C.int
+	uwp_height C.int
 }
 
 //go:embed shaders/sprite.vert.glsl
@@ -197,6 +199,8 @@ var identFragShader string
 func (r *Renderer) Init() {
 	sys.errLog.Printf("Using OpenGL %v (%v)",
 		gl.GetString(gl.VERSION), gl.GetString(gl.RENDERER))
+
+	C.uwp_GetScreenSize(&r.uwp_width, &r.uwp_height)
 
 	r.postShaderSelect = make([]*ShaderProgram, 1+len(sys.externalShaderList))
 
@@ -336,7 +340,7 @@ func (r *Renderer) EndFrame() {
 		aspect_offset = int32(r.uwp_width) - int32(float32(r.uwp_width) / render_ratio)
 	}
 
-	gl.Viewport(aspect_offset / 2, 0, int32(int32(r.uwp_width) - aspect_offset), int32(r.uwp_height))
+	gl.Viewport(int(aspect_offset / 2), 0, int(int32(r.uwp_width) - aspect_offset), int(r.uwp_height))
 	gl.DrawArrays(gl.TRIANGLE_STRIP, 0, 4)
 
 	gl.DisableVertexAttribArray(postShader.aVert)

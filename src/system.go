@@ -446,7 +446,7 @@ func (s *System) init(w, h int32) *lua.LState {
 
 	s.drawc1Tex = PaletteTexture()
 	s.drawc2Tex = PaletteTexture()
-	s.drawc2sprTex = PaletteTexture()
+	s.drawc2spTex = PaletteTexture()
 	s.drawc2mtkTex = PaletteTexture()
 	s.drawwhTex = PaletteTexture()
 
