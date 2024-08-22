@@ -33,6 +33,7 @@ var FPS = 60
 var sys = System{
 	randseed:          int32(time.Now().UnixNano()),
 	scrrect:           [...]int32{0, 0, 320, 240},
+	scrrect_actual:    [...]int32{0, 0, 320, 240},
 	gameWidth:         320,
 	gameHeight:        240,
 	keepAspect:        true,
@@ -105,6 +106,7 @@ const (
 type System struct {
 	randseed                int32
 	scrrect                 [4]int32
+	scrrect_actual          [4]int32
 	gameWidth, gameHeight   int32
 	widthScale, heightScale float32
 	keepAspect              bool
@@ -395,7 +397,7 @@ func (s *System) init(w, h int32) *lua.LState {
 	s.setWindowSize(w, h)
 	var err error
 	// Create a system window.
-	s.window, err = s.newWindow(int(s.scrrect[2]), int(s.scrrect[3]))
+	s.window, err = s.newWindow(int(s.scrrect_actual[2]), int(s.scrrect_actual[3]))
 	chk(err)
 
 	// Check if the shader selected is currently available.
@@ -498,7 +500,11 @@ func (s *System) shutdown() {
 	speaker.Close()
 }
 func (s *System) setWindowSize(w, h int32) {
-	s.scrrect[2], s.scrrect[3] = w, h
+	s.scrrect_actual[2], s.scrrect_actual[3] = w, h
+
+	s.scrrect[2] = int32(float32(w) * s.fbScaling)
+	s.scrrect[3] = int32(float32(h) * s.fbScaling)
+
 	if s.scrrect[2]*3 > s.scrrect[3]*4 {
 		s.gameWidth, s.gameHeight = s.scrrect[2]*3*320/(s.scrrect[3]*4), 240
 	} else {

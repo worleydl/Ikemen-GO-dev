@@ -81,10 +81,6 @@ func main() {
 		ftemp.Close()
 	}
 
-	// Apply scaling
-	tmp.GameWidth = int32(float32(tmp.GameWidth) * tmp.Scaling)
-	tmp.GameHeight = int32(float32(tmp.GameHeight) * tmp.Scaling)
-
 	// Initialize game and create window
 	sys.luaLState = sys.init(tmp.GameWidth, tmp.GameHeight)
 	defer sys.shutdown()
