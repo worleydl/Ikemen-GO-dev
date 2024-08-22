@@ -1260,6 +1260,7 @@ local motif =
 		--menu_itemname_fullscreen = 'Fullscreen', --Ikemen feature
 		--menu_itemname_vretrace = 'VSync', --Ikemen feature
 		--menu_itemname_msaa = 'MSAA', --Ikemen feature
+		--menu_itemname_scaling = 'Framebuffer Scaling', --Ikemen feature
 		--menu_itemname_shaders = 'Shaders', --Ikemen feature
 		--menu_itemname_noshader = 'Disable', --Ikemen feature
 		--menu_itemname_mastervolume = 'Master Volume', --Ikemen feature
@@ -2025,6 +2026,15 @@ function motif.setBaseOptionInfo()
 	motif.option_info.menu_itemname_menuvideo_keepaspect = "Keep Aspect Ratio"
 	motif.option_info.menu_itemname_menuvideo_windowscalemode = "Bilinear Filtering"
 	motif.option_info.menu_itemname_menuvideo_msaa = "MSAA"
+	motif.option_info.menu_itemname_menuvideo_scaling = "Framebuffer Scaling"
+	motif.option_info.menu_itemname_menuvideo_scaling_0pt25 = "25%"
+	motif.option_info.menu_itemname_menuvideo_scaling_0pt50 = "50%"
+	motif.option_info.menu_itemname_menuvideo_scaling_0pt75 = "75%"
+	motif.option_info.menu_itemname_menuvideo_scaling_1pt00 = "100%"
+	motif.option_info.menu_itemname_menuvideo_scaling_1pt25 = "125%"
+	motif.option_info.menu_itemname_menuvideo_scaling_1pt50 = "150%"
+	motif.option_info.menu_itemname_menuvideo_scaling_1pt75 = "175%"
+	motif.option_info.menu_itemname_menuvideo_scaling_2pt00 = "200%"
 	motif.option_info.menu_itemname_menuvideo_shaders = "Shaders" --reserved submenu
 	-- This list is populated with shaders existing in 'external/shaders' directory
 	motif.option_info.menu_itemname_menuvideo_shaders_empty = ""
@@ -2150,6 +2160,15 @@ function motif.setBaseOptionInfo()
 		"menuvideo_keepaspect",
 		"menuvideo_windowscalemode",
 		"menuvideo_msaa",
+		"menuvideo_scaling",
+		"menuvideo_scaling_0pt25",
+		"menuvideo_scaling_0pt50",
+		"menuvideo_scaling_0pt75",
+		"menuvideo_scaling_1pt00",
+		"menuvideo_scaling_1pt25",
+		"menuvideo_scaling_1pt50",
+		"menuvideo_scaling_1pt75",
+		"menuvideo_scaling_2pt00",
 		"menuvideo_shaders",
 		"menuvideo_shaders_empty",
 		"menuvideo_shaders_noshader",

@@ -253,6 +253,7 @@ type configSettings struct {
 	RoundsNumSingle            int32
 	RoundsNumTag               int32
 	RoundTime                  int32
+	Scaling                    float32
 	ScreenshotFolder           string
 	StartStage                 string
 	StereoEffects              bool

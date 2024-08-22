@@ -181,6 +181,7 @@ options.t_itemname = {
 			config.RoundsNumSingle = 2
 			config.RoundsNumTag = 2
 			config.RoundTime = 99
+			config.Scaling = 1.0
 			--config.ScreenshotFolder = ""
 			--config.StartStage = "stages/stage0-720.def"
 			config.StereoEffects = true
@@ -939,6 +940,31 @@ options.t_itemname = {
 		end
 		return true
 	end,
+    -- Framebuffer Scaling (submenu)
+    ['scaling'] = function(t, item, cursorPosY, moveTxt)
+		if main.f_input(main.t_players, {'$F', '$B', 'pal', 's'}) then
+			sndPlay(motif.files.snd_data, motif.option_info.cursor_move_snd[1], motif.option_info.cursor_move_snd[2])
+			local t_pos = {}
+			local ok = false
+			for k, v in ipairs(t.submenu[t.items[item].itemname].items) do
+				local whole, partial = v.itemname:match('^([0-9]+)pt([0-9]+)$')
+				local scale = whole + (partial / 100)
+				if scale == config.Scaling then
+					v.selected = true
+					ok = true
+				else
+					v.selected = false
+				end
+			end
+			if not ok and t_pos.selected ~= nil then
+				t_pos.selected = true
+			end
+			t.submenu[t.items[item].itemname].loop()
+			t.items[item].vardisplay = (config.Scaling * 100) .. '%'
+		end
+		return true
+	end,
+
 	--Shaders (submenu)
 	['shaders'] = function(t, item, cursorPosY, moveTxt)
 		if main.f_input(main.t_players, {'$F', '$B', 'pal', 's'}) then
@@ -1505,6 +1531,9 @@ options.t_vardisplay = {
 	['roundtime'] = function()
 		return options.f_definedDisplay(config.RoundTime, {[-1] = motif.option_info.menu_valuename_none}, config.RoundTime)
 	end,
+	['scaling'] = function()
+		return tonumber(config.Scaling * 100) .. '%'
+    end,
 	['sfxvolume'] = function()
 		return config.VolumeSfx .. '%'
 	end,
@@ -1612,6 +1641,20 @@ function options.f_start()
 					config['Ratio' .. ratioType][ratioLevel] = options.f_precision(config['Ratio' .. ratioType][ratioLevel] - 0.01, '%.02f')
 					t.items[item].vardisplay = options.f_displayRatio(config['Ratio' .. ratioType][ratioLevel])
 					options.modified = true
+				end
+				return true
+			end
+		-- scaling
+		elseif v:match('_scaling_[0-9]+pt[0-9]+$') then
+			local whole, partial = v:match('_([0-9]+)pt([0-9]+)$')
+			local scale = whole .. 'pt' .. partial
+			options.t_itemname[scale] = function(t, item, cursorPosY, moveTxt)
+				if main.f_input(main.t_players, {'pal', 's'}) then
+					sndPlay(motif.files.snd_data, motif.option_info.cursor_done_snd[1], motif.option_info.cursor_done_snd[2])
+					config.Scaling = whole + (partial / 100)
+					options.modified = true
+					options.needReload = true
+					return false
 				end
 				return true
 			end
