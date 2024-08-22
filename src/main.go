@@ -81,6 +81,10 @@ func main() {
 		ftemp.Close()
 	}
 
+	// Apply scaling
+	tmp.GameWidth = int32(float32(tmp.GameWidth) * tmp.Scaling)
+	tmp.GameHeight = int32(float32(tmp.GameHeight) * tmp.Scaling)
+
 	// Initialize game and create window
 	sys.luaLState = sys.init(tmp.GameWidth, tmp.GameHeight)
 	defer sys.shutdown()
@@ -365,6 +369,7 @@ func setupConfig() configSettings {
 	sys.controllerStickSensitivity = tmp.ControllerStickSensitivity
 	sys.explodMax = tmp.MaxExplod
 	sys.externalShaderList = tmp.ExternalShaders
+	sys.fbScaling = tmp.Scaling
 	// Bump up shader version for macOS only
 	if runtime.GOOS == "darwin" {
 		tmp.FontShaderVer = max(150, tmp.FontShaderVer)

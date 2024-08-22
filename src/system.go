@@ -329,6 +329,9 @@ type System struct {
 	externalShaderNames []string
 	externalShaders     [][]string
 
+	// Framebuffer scaling
+	fbScaling	float32
+
 	// Icon
 	windowMainIcon         []image.Image
 	windowMainIconLocation []string
