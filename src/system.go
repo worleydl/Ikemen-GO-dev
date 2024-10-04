@@ -2036,7 +2036,7 @@ func (s *System) drawTop() {
 		s.clsnSpr.Pal[0] = 0xff0040c0
 		s.debugc1rev.draw(s.debugc1revTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff000080
-		s.debugc1not.draw(s.debug1notTex, 0x3feff)
+		s.debugc1not.draw(s.debugc1notTex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xffff0000
 		s.debugc2.draw(s.debugc2Tex, 0x3feff)
 		s.clsnSpr.Pal[0] = 0xff808000

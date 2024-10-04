@@ -338,8 +338,6 @@ func (r *Renderer) Init() {
 	gl.ActiveTexture(gl.TEXTURE0)
 	gl.GenTextures(1, &r.fbo_texture)
 
-	C.uwp_GetScreenSize(&r.uwp_width, &r.uwp_height)
-
 	if sys.multisampleAntialiasing > 0 {
 		gl.BindTexture(gl.TEXTURE_2D_MULTISAMPLE, r.fbo_texture)
 	} else {
